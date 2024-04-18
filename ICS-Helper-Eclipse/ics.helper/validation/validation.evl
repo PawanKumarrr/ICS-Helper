@@ -1,0 +1,42 @@
+context Schedule {
+    constraint ValidName {
+        check: self.name.size() > 0
+        message: 'Schedule must have a non-empty name.'
+    }
+}
+
+context Organizer {
+    constraint ValidName {
+        check: self.name.size() > 0
+        message: 'Organizer must have a non-empty name.'
+    }
+    
+    constraint ValidEmail {
+        check: self.email.matches("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$")
+        message: 'Organizer must have a valid email address.'
+    }
+}
+
+context Invitee {
+    constraint ValidName {
+        check: self.name.size() > 0
+        message: 'Invitee must have a non-empty name.'
+    }
+    
+    constraint ValidEmail {
+        check: self.email.matches("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$")
+        message: 'Invitee must have a valid email address.'
+    }
+}
+
+context Event {
+    constraint ValidTitle {
+        check: self.title.size() > 0
+        message: 'Event must have a non-empty title.'
+    }
+
+    constraint DatesLogicalOrder {
+        check: self.startdate.before(self.enddate)
+        message: 'Event start date must be before its end date.'
+    }
+}
